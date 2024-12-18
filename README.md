@@ -174,7 +174,7 @@ class MyUploader < CarrierWave::Uploader::Base
 end
 ```
 
-**WARNING**: A `content_type_whitelist` is the only form of whitelist or blacklist supported by CarrierWave that can effectively mitigate against CVE-2016-3714. Use of `extension_type_whitelist` will not inspect the file headers, and thus still leaves your application open to the vulnerability.
+**WARNING**: A `content_type_whitelist` is the only form of whitelist or blacklist supported by CarrierWave that can effectively mitigate against CVE-2016-3714. Use of `extension_white_list` will not inspect the file headers, and thus still leaves your application open to the vulnerability.
 
 
 ### Filenames and unicode chars
@@ -278,7 +278,9 @@ end
 ### Conditional versions
 
 Occasionally you want to restrict the creation of versions on certain
-properties within the model or based on the picture itself.
+properties within the model or based on the picture itself. Create an
+instance method that accepts a file object as an argument and returns
+a boolean.
 
 ```ruby
 class MyUploader < CarrierWave::Uploader::Base
@@ -568,7 +570,7 @@ Processing can be enabled for a single version by setting the processing flag on
 [Fog](http://github.com/fog/fog) is used to support Amazon S3. Ensure you have it in your Gemfile:
 
 ```ruby
-gem "fog", "~> 1.3.1"
+gem "fog"
 ```
 
 You'll need to provide your fog_credentials and a fog_directory (also known as a bucket) in an initializer.
