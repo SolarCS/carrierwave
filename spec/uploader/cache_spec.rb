@@ -86,7 +86,7 @@ describe CarrierWave::Uploader do
     it "should move it to the tmp dir" do
       @uploader.cache!(File.open(file_path('test.jpg')))
       @uploader.file.path.should == public_path('uploads/tmp/1369894322-345-2255/test.jpg')
-      @uploader.file.exists?.should be_true
+      @uploader.File.exist?.should be_true
     end
 
     it "should set the url" do
@@ -303,7 +303,7 @@ describe CarrierWave::Uploader do
       it "should move it to the tmp dir with the filename unreversed" do
         @uploader.cache!(File.open(file_path('test.jpg')))
         @uploader.current_path.should == public_path('uploads/tmp/1369894322-345-2255/test.jpg')
-        @uploader.file.exists?.should be_true
+        @uploader.File.exist?.should be_true
       end
     end
 
