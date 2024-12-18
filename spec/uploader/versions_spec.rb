@@ -191,8 +191,8 @@ describe CarrierWave::Uploader do
         @uploader.cache!(File.open(file_path('test.jpg')))
         @uploader.current_path.should == public_path('uploads/tmp/1369894322-345-2255/test.jpg')
         @uploader.thumb.current_path.should == public_path('uploads/tmp/1369894322-345-2255/thumb_test.jpg')
-        @uploader.file.exists?.should be_true
-        @uploader.thumb.file.exists?.should be_true
+        @uploader.File.exist?.should be_true
+        @uploader.thumb.File.exist?.should be_true
       end
 
       it "should cache the files based on the parent" do
@@ -221,8 +221,8 @@ describe CarrierWave::Uploader do
         @uploader.cache!(File.open(file_path('test.jpg')))
         @uploader.current_path.should == public_path('uploads/tmp/1369894322-345-2255/test.jpg')
         @uploader.thumb.current_path.should == public_path('uploads/tmp/1369894322-345-2255/thumb_test.jpg')
-        @uploader.file.exists?.should be_true
-        @uploader.thumb.file.exists?.should be_true
+        @uploader.File.exist?.should be_true
+        @uploader.thumb.File.exist?.should be_true
       end
 
       it "should allow overriding move_to_cache on versions" do
@@ -234,8 +234,8 @@ describe CarrierWave::Uploader do
         @uploader.cache!(File.open(file_path('test.jpg')))
         @uploader.current_path.should == public_path('uploads/tmp/1369894322-345-2255/test.jpg')
         @uploader.thumb.current_path.should == public_path('uploads/tmp/1369894322-345-2255/thumb_test.jpg')
-        @uploader.file.exists?.should be_false
-        @uploader.thumb.file.exists?.should be_true
+        @uploader.File.exist?.should be_false
+        @uploader.thumb.File.exist?.should be_true
       end
     end
 
@@ -376,13 +376,13 @@ describe CarrierWave::Uploader do
       it "should recreate all versions if any are missing" do
         @uploader.store!(@file)
 
-        File.exists?(@uploader.thumb.path).should == true
+        File.exist?(@uploader.thumb.path).should == true
         FileUtils.rm(@uploader.thumb.path)
-        File.exists?(@uploader.thumb.path).should == false
+        File.exist?(@uploader.thumb.path).should == false
 
         @uploader.recreate_versions!
 
-        File.exists?(@uploader.thumb.path).should == true
+        File.exist?(@uploader.thumb.path).should == true
       end
 
       it "should recreate only specified versions if passed as args" do
@@ -390,21 +390,21 @@ describe CarrierWave::Uploader do
         @uploader_class.version(:maxi)
         @uploader.store!(@file)
 
-        File.exists?(@uploader.thumb.path).should == true
-        File.exists?(@uploader.mini.path).should == true
-        File.exists?(@uploader.maxi.path).should == true
+        File.exist?(@uploader.thumb.path).should == true
+        File.exist?(@uploader.mini.path).should == true
+        File.exist?(@uploader.maxi.path).should == true
         FileUtils.rm(@uploader.thumb.path)
-        File.exists?(@uploader.thumb.path).should == false
+        File.exist?(@uploader.thumb.path).should == false
         FileUtils.rm(@uploader.mini.path)
-        File.exists?(@uploader.mini.path).should == false
+        File.exist?(@uploader.mini.path).should == false
         FileUtils.rm(@uploader.maxi.path)
-        File.exists?(@uploader.maxi.path).should == false
+        File.exist?(@uploader.maxi.path).should == false
 
         @uploader.recreate_versions!(:thumb, :maxi)
 
-        File.exists?(@uploader.thumb.path).should == true
-        File.exists?(@uploader.maxi.path).should == true
-        File.exists?(@uploader.mini.path).should == false
+        File.exist?(@uploader.thumb.path).should == true
+        File.exist?(@uploader.maxi.path).should == true
+        File.exist?(@uploader.mini.path).should == false
       end
 
       it "should not create version if proc returns false" do
